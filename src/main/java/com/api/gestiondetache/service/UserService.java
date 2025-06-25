@@ -1,9 +1,14 @@
 package com.api.gestiondetache.service;
 
+import com.api.gestiondetache.model.Project;
+import com.api.gestiondetache.model.Task;
 import com.api.gestiondetache.model.User;
 import com.api.gestiondetache.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -13,6 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     /**Méthode qui se charge de la creation d'un user*/
+    @Transactional
     public User createUser(String username) {
 
         if(username == null || username.trim().isEmpty()) {
@@ -27,4 +33,22 @@ public class UserService {
        userRepository.save(newUser);
        return newUser;
     }
+
+    /**Méthode retrouver project liés à l'utilisateur*/
+    @Transactional
+    public List<Project> getUserProjects(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé avec id " + id));
+        return user.getProjects();
+    }
+
+    /**Méthode pour retrouver les taches assignées à un utilisateur*/
+    @Transactional
+    public List<Task> getUserTasks(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User non trouve avec cet id " + id));
+        return user.getTasks();
+    }
+
+
 }
