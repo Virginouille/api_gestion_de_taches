@@ -20,10 +20,14 @@ public class Task {
     @Enumerated
     private TaskStatuts statuts;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "assignee_id")
+    private User assignee;
+
     @ManyToOne(optional=false, fetch=FetchType.EAGER)
     @JoinColumn(name="project_id")
     private Project project;
 
     @ManyToMany(mappedBy="tasks", fetch=FetchType.LAZY)
-    private List<User> assignee;
+    private List<User> users;
 }

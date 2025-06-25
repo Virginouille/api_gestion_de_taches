@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -50,5 +51,14 @@ public class UserService {
         return user.getTasks();
     }
 
+    /**Expo userrepo trouver par id */
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 
+    /**Expo userrepo trouver liste user par id */
+    public List<User> findAllById(List<Long> ids) {
+        return userRepository.findAllById(ids);
+
+    }
 }
