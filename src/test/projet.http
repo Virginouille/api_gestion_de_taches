@@ -1,0 +1,12 @@
+### Créer un projet
+POST http://localhost:8080/api/projects/create
+Content-Type: application/json
+
+{
+  "idUser": 1,
+  "projectName": "Projet Test"
+}
+
+### Récupérer un projet avec ses tâches
+GET http://localhost:8080/api/projects/1
+Accept: application/json

@@ -19,7 +19,7 @@ public class TaskService {
 
     /**Méthode qui se charge de la creation d'une nouvelle task*/
     @Transactional
-    public Task createTask(String title, TaskStatuts statut, User assignee, List<User> users) {
+    public Task createTask(String title, TaskStatuts statut, User assignee, List<User> users) { //revoir avec les id
 
         if (taskRepository.existsByTitle(title)) {
             throw new IllegalArgumentException("Nom de tâche déjà attribué");
