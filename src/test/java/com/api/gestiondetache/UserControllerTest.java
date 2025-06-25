@@ -26,13 +26,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Optional;
 
-import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
-import static org.apache.tomcat.util.net.openssl.OpenSSLStatus.setName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.ExpectedCount.times;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,7 +58,7 @@ public class UserControllerTest {
     @BeforeEach
     void setup() {
         userService = mock(UserService.class);
-        userController = new UserController(userService);
+        userController = new UserController(userService, userRepository);
     }
 
     //Test si user est créé
@@ -111,15 +109,14 @@ public class UserControllerTest {
     void testGetUserProjects() {
         Long userId = 1L;
 
-
         List<Project> mockProjects = List.of(
                 new Project() {{
                     setId(1L);
-                    Project.setName("Projet A");
+                    setName("Projet A");
                 }},
                 new Project() {{
                     setId(2L);
-                    Project.setName("Projet B");
+                    setName("Projet B");
                 }}
         );
 
